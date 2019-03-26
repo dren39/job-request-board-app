@@ -5,8 +5,6 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.text :description
       t.string :reward
       t.string :contact
-      t.string :deadline
-      t.integer :specialty
       t.string :location
       t.belongs_to :user, foreign_key: true
 

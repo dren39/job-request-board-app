@@ -17,8 +17,6 @@ ActiveRecord::Schema.define(version: 2019_03_25_143021) do
     t.text "description"
     t.string "reward"
     t.string "contact"
-    t.string "deadline"
-    t.integer "specialty"
     t.string "location"
     t.integer "user_id"
     t.datetime "created_at", null: false
