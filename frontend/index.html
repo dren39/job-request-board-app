@@ -3,16 +3,35 @@
   <head>
     <meta charset="utf-8">
     <script src="src/index.js"></script>
+    <script src="src/post.js"></script>
+    <script src="src/app.js"></script>
     <link rel="stylesheet" href="index.css">
     <title></title>
-    <h1>S.K.E.T Board</h1>
+    <h1>S.K.E.T. Board</h1>
     <h4>Support Kindness Encouragement Troubleshoot</h4><br>
-    <h3>Requests</h3><br>
   </head>
-
-  <body>
+  <h3>Enter a new request</h3>
+  <form id="form">
+    <label>Title</label>
+    <input type="text" id="title"><br>
+    <label>Description</label><br>
+    <textarea id="description"></textarea><br>
+    <label>Reward</label>
+    <input type="text" id="reward"><br>
+    <label>Contact</label>
+    <input type="text" id="contact"><br>
+    <label>Deadline</label>
+    <input type="text" id="deadline"><br>
+    <label>Location</label>
+    <input type="text" id="location"><br>
+    <label>Username</label>
+    <input type="text" id="username"><br>
+    <input type="submit">
+  </form><br>
+  <h3>Requests</h3><br>
+  <body id="body">
     <div id="container">
-    </div>
+    </div><br>
   </body>
 
 </html>
