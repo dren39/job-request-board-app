@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const signform = document.querySelector('#sign-form');
   const signDiv = document.querySelector('#sign-div');
   const greet = document.querySelector('#greet');
+
   //functions
 
   //this fetches all objects from API and passes to render
@@ -260,5 +261,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
       logout();
     }
   });//end of this event
+
   fetchPosts();
 });
