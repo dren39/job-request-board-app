@@ -2,33 +2,102 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <script src="src/index.js"></script>
-    <link rel="stylesheet" href="index.css">
-    <title></title>
-    <h1>S.K.E.T Board</h1>
-    <h4>Support Kindness Encouragement Troubleshoot</h4><br>
-  </head>
-  <h3>Enter a new request</h3>
-  <form id="form">
-    <label>Title</label>
-    <input type="text" id="title"><br>
-    <label>Description</label><br>
-    <textarea id="description"></textarea><br>
-    <label>Reward</label>
-    <input type="text" id="reward"><br>
-    <label>Location</label>
-    <input type="text" id="location"><br>
-    <label>Contact</label>
-    <input type="text" id="contact"><br>
-    <label>Username</label>
-    <input type="text" id="username"><br>
-    <input type="submit">
-  </form><br>
-  <br><body><br>
-    <h3>Requests</h3>
-    <div id="container">
 
+    <script src="src/index.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="index.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+
+  <h1 style="color:white" class="text-center">Guild Quest</h1>
+  <h4 style="color:white" class="text-center">Complete jobs and get rewarded</h4><br>
+  <h3 id="greet" style="color:white">Sign up or Sign in!</h3>
+
+  <!-- handles signin functionality -->
+  <div id="sign-div">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal">
+      Signup/Login
+    </button>
+
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sign up or Login</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+        <div class="modal-body">
+          <form id="sign-form">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" id="sign-username" class="form-control" placeholder="Username">
+                </div>
+                <div class="col">
+                    <input type="password" class="form-control" id="sign-pw" placeholder="Password">
+                </div>
+            </div>
+          <br><input type="submit" id="sign-submit" class="btn btn-primary">
+          </form>
+        </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Launch request modal -->
+  <br> <button type="button" class="btn btn-primary float-lg-left" data-toggle="modal" data-target="#request-modal">
+  Enter a Request
+  </button>
+
+  <!-- Request modal form -->
+  <div class="modal fade" id="request-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Enter a new request</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="form">
+            <input type="text" id="title" placeholder="Title" class="form-control"><br>
+            <textarea id="description" placeholder="Description" class="form-control"></textarea><br>
+            <input type="text" id="reward" placeholder="Reward" class="form-control"><br>
+            <input type="text" id="location" placeholder="Location" class="form-control"><br>
+            <input type="text" id="contact" placeholder="Contact Info" class="form-control"><br>
+            <input type="text" id="username" placeholder="Username" class="form-control"><br>
+            <br> <input type="submit" class="btn btn-primary text-center form-control">
+          </form><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><body> <br>
+    <div id="container">
+      <div id="index-container">
+
+      </div>
+      <div id="show-container">
+
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 
 </html>

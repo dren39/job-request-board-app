@@ -3,25 +3,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   //variables
   const postUrl = "http://localhost:3000/posts";
+  const userUrl = "http://localhost:3000/users"
   const divContainer = document.querySelector("#container");
+  const divIndexContainer = document.querySelector("#index-container");
+  const divShowContainer = document.querySelector("#show-container");
   const form = document.querySelector("#form");
   const postMethod = 'POST';
   const patchMethod = 'PATCH';
   const deleteMethod = 'DELETE';
-
+  const signform = document.querySelector('#sign-form');
+  const signDiv = document.querySelector('#sign-div');
+  const greet = document.querySelector('#greet');
   //functions
-  function renderPost(post) {
-    divContainer.innerHTML += `
-      <div class="card" data-post-id="${post.id}">
-      <h4>${post.title}</h4>
-      <p>Reward: ${post.reward}</p>
-      <p>Location: ${post.location}</p>
-      </div>
-    `
-  };//end of function
 
+  //this fetches all objects from API and passes to render
   function fetchPosts() {
-    divContainer.innerHTML = '';
+    divIndexContainer.innerHTML = '';
+    divShowContainer.innerHTML = '';
     fetch(postUrl)
     .then(response => response.json())
     .then(posts => {
@@ -29,10 +27,65 @@ document.addEventListener('DOMContentLoaded', (event) => {
       renderPost(post)
       })
     })//end of fetch
-  }//end of function
+  }//end of this function
 
-  function fetchNewPost(method, inputs='', func, postId='') {
-    console.log(postId);
+  //this creates each card for each object and adds to container
+  function renderPost(post) {
+    divIndexContainer.innerHTML += `
+    <div class="index-card p-3 mb-2 bg-light border rounded border-primary" style="width: 20rem;" data-post-id="${post.id}">
+      <div class="card-body">
+        <h4 class="card-title">${post.title}</h4>
+        <p class="card-text">Reward: ${post.reward}</p>
+        <p class="card-text">Location: ${post.location}</p>
+        <a class="btn btn-primary see-quest" href="#" data-post-id="${post.id}">See Quest</a>
+      </div>
+    </div>
+    `
+    // <div class="card" data-post-id="${post.id}">
+    // <h4>${post.title}</h4>
+    // <p>Reward: ${post.reward}</p>
+    // <p>Location: ${post.location}</p>
+    // </div>
+  };//end of this function
+
+  //this fetches for specific object and passes to showPost function
+  function getPost(postId) {
+    fetch(`${postUrl}/${postId}`)
+    .then(response => response.json())
+    .then(post => {
+      showPost(post);
+    })
+  }//end of this function
+
+  //this takes the object and renders the "show" page for that object
+  function showPost(post) {
+    divIndexContainer.innerHTML = '';
+    divShowContainer.innerHTML = `
+    <div class="show-card card border-primary mb-3">
+      <h3 class="show-attr" >${post.title}</h3>
+      <span>Description:
+      <span class="show-attr">${post.description}</span>
+      </span><br>
+      <br><span>Reward:
+      <span class="show-attr">${post.reward}</span>
+      <br></span><br>
+      <span>Contact:
+      <span class="show-attr">${post.contact}</span>
+      <br></span><br>
+      <span>Location:
+      <span class="show-attr">${post.location}</span>
+      <br></span><br>
+      <span>Username:
+      <span class="show-attr">${post.user_id}</span>
+      <br></span><br>
+      <button type="button" id="edit" class="btn btn-primary" data-edit-id="${post.id}">Edit</button><br>
+      <button type="button" id="delete" class="btn btn-danger" data-delete-id="${post.id}">Delete</button>
+    </div>
+    `
+  };//end of this function
+
+  //this handles the patch and post fetch requests and calls the function passes in
+  function patchPostFetch(method, inputs, func, postId='') {
     fetch(`${postUrl}/${postId}`, {
       method: `${method}`,
       headers: {
@@ -40,12 +93,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       body: JSON.stringify({
         id: postId,
-        title: inputs.title,
-        description: inputs.description,
-        reward: inputs.reward,
-        contact: inputs.contact,
-        location: inputs.location,
-        username: inputs.username
+        title: inputs.title.value,
+        description: inputs.description.value,
+        reward: inputs.reward.value,
+        contact: inputs.contact.value,
+        location: inputs.location.value,
+        username: inputs.username.value
       })
     })//end of fetch
     .then(response => response.json())
@@ -54,14 +107,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
   };//end of function
 
-  function getPost(postId) {
-    fetch(`${postUrl}/${postId}`)
-    .then(response => response.json())
-    .then(post => {
-      showPost(post);
-    })
-  }//end of function
-
+  //this makes a delete request for a specific object
   function deletePost(postId) {
     fetch(`${postUrl}/${postId}`, {
       method: 'DELETE',
@@ -78,32 +124,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
   };//end of function
 
-  function showPost(post) {
-    divContainer.innerHTML = '';
-    divContainer.innerHTML = `
-    <div class="show-card">
-    <h3 class="show-attr">${post.title}</h3>
-    <span>Description:
-      <span class="show-attr">${post.description}</span>
-    </span><br>
-    <br><span>Reward:
-      <span class="show-attr">${post.reward}</span>
-    <br></span><br>
-    <span>Contact:
-      <span class="show-attr">${post.contact}</span>
-    <br></span><br>
-    <span>Location:
-      <span class="show-attr">${post.location}</span>
-    <br></span><br>
-    <span>Username:
-      <span class="show-attr">${post.user_id}</span>
-    <br></span><br>
-    <button type="button" id="edit" data-edit-id="${post.id}">Edit</button>
-    <button type="button" id="delete" data-delete-id="${post.id}">Delete</button>
-    </div>
+  //this generates just the form html for edit and calls the populate function
+  function generateForm(parentNode, postId) {
+    divShowContainer.innerHTML = '';
+    divShowContainer.innerHTML = `
+    <form id="edit-form">
+    <label>Title</label>
+    <input type="text" id="edit-title"><br>
+    <label>Description</label><br>
+    <textarea id="edit-description"></textarea><br>
+    <label>Reward</label>
+    <input type="text" id="edit-reward"><br>
+    <label>Location</label>
+    <input type="text" id="edit-location"><br>
+    <label>Contact</label>
+    <input type="text" id="edit-contact"><br>
+    <label>Username</label>
+    <input type="text" id="edit-username"><br>
+    <input type="submit" id="edit-submit" data-edit-submit-id="${postId}">
+    </form><br>
     `
+    populateForm(parentNode)
   };//end of function
 
+  //this populates the edit form fields with the values from the passed object
   function populateForm(parentNode) {
     document.querySelector('#edit-title').value = parentNode.title
     document.querySelector('#edit-description').value = parentNode.description
@@ -113,36 +157,68 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.querySelector('#edit-username').value = parentNode.username
   };//end of function
 
-  function generateForm(parentNode, postId) {
-    divContainer.innerHTML = '';
-    divContainer.innerHTML = `
-    <form id="edit-form">
-      <label>Title</label>
-      <input type="text" id="edit-title"><br>
-      <label>Description</label><br>
-      <textarea id="edit-description"></textarea><br>
-      <label>Reward</label>
-      <input type="text" id="edit-reward"><br>
-      <label>Location</label>
-      <input type="text" id="edit-location"><br>
-      <label>Contact</label>
-      <input type="text" id="edit-contact"><br>
-      <label>Username</label>
-      <input type="text" id="edit-username"><br>
-      <input type="submit" id="edit-submit" data-edit-submit-id="${postId}">
-    </form><br>
-    `
-    populateForm(parentNode)
-  };//end of function
+  function fetchLogin(login) {
+    fetch(userUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: login.username
+        // password: login.password
+      })
+    })//end of fetch
+    .then(response => response.json())
+    .then(user => {
+      makeUser(user)
+    })
+  };//end of this function
 
-  //event listener
-  divContainer.addEventListener('click', event => {
+  function makeUser(user) {
+    signDiv.innerHTML = '';
+    signDiv.innerHTML = `
+    <button type="button" id="log-out">Logout</button>
+    `
+    greet.innerText = `Hi, ${user.username}`
+  };//end of this function
+
+  function logout() {
+    greet.innerText = "Sign up or Sign in!"
+    signDiv.innerHTML = '';
+    signDiv.innerHTML = `
+      <form id="sign-form">
+        <label>Username</label>
+        <input id="sign-username">
+        <label>Password</label>
+        <input type="password" id="sign-pw">
+        <input type="submit" id="sign-submit">
+      </form><br>
+    `
+  };//end of this function
+
+  function clearForm(inputs) {
+    inputs.title.value = '';
+    inputs.description.value = '';
+    inputs.reward.value = '';
+    inputs.contact.value = '';
+    inputs.location.value = '';
+    inputs.username.value = '';
+  };//end of this function
+
+  //event listeners
+  //this listens for a click on the div container and delegates the event based on the target (show, edit, delete)
+  divIndexContainer.addEventListener('click', event => {
     let postId = event.target.dataset.postId
-    event.preventDefault()
-    if (event.target.matches(".card")) {
+    if (event.target.matches(".see-quest")) {
       getPost(postId);
-    }else if (event.target.matches("#edit")) {
-      postId = event.target.dataset.editId;
+    }
+  });
+
+  divShowContainer.addEventListener('click', event=> {
+    event.preventDefault();
+    if(event.target.matches("#edit")) {
+      console.log(event);
+      let postId = event.target.dataset.editId;
       const parentNode = {
         title: event.target.parentNode.getElementsByClassName("show-attr")[0].innerText,
         description: event.target.parentNode.getElementsByClassName("show-attr")[1].innerText,
@@ -152,36 +228,54 @@ document.addEventListener('DOMContentLoaded', (event) => {
         username: event.target.parentNode.getElementsByClassName("show-attr")[5].innerText
       }
       generateForm(parentNode, postId)
-    } else if (event.target.matches("#edit-submit")) {
+    }
+    else if (event.target.matches("#edit-submit")) {
       postId = event.target.dataset.editSubmitId
       const inputs = {
-       title: document.querySelector('#edit-title').value,
-       description: document.querySelector('#edit-description').value,
-       reward: document.querySelector('#edit-reward').value,
-       location: document.querySelector('#edit-location').value,
-       contact: document.querySelector('#edit-contact').value,
-       username: document.querySelector('#edit-username').value
+        title: document.querySelector('#edit-title'),
+        description: document.querySelector('#edit-description'),
+        reward: document.querySelector('#edit-reward'),
+        location: document.querySelector('#edit-location'),
+        contact: document.querySelector('#edit-contact'),
+        username: document.querySelector('#edit-username')
       }
-      fetchNewPost(patchMethod, inputs, fetchPosts, postId);
-    }else if (event.target.matches("#delete")) {
+      patchPostFetch(patchMethod, inputs, fetchPosts, postId);
+    }
+    else if (event.target.matches("#delete")) {
       postId = event.target.dataset.deleteId
       deletePost(postId)
     }
-
-  })//end of event listener
+  })//end of this event listener
 
   form.addEventListener('submit', event => {
     event.preventDefault()
-    const postId = event.target.dataset
     const inputs = {
-      title: document.querySelector('#title').value,
-      description: document.querySelector('#description').value,
-      reward: document.querySelector('#reward').value,
-      contact: document.querySelector('#contact').value,
-      location: document.querySelector('#location').value,
-      username: document.querySelector('#username').value
+      title: document.querySelector('#title'),
+      description: document.querySelector('#description'),
+      reward: document.querySelector('#reward'),
+      contact: document.querySelector('#contact'),
+      location: document.querySelector('#location'),
+      username: document.querySelector('#username')
     }
-    fetchNewPost(postMethod, inputs, renderPost);
-  });//end of event listener
+    patchPostFetch(postMethod, inputs, renderPost);
+    clearForm(inputs);
+    $('#request-modal').modal('hide');
+  });//end of this event
+
+  signform.addEventListener('submit', event => {
+    event.preventDefault();
+    const myModal = document.querySelector("#exampleModal")
+    const login = {
+      username: document.querySelector("#sign-username").value,
+    }
+    $('#login-modal').modal('hide');
+    fetchLogin(login)
+  });//end of this event
+
+  signDiv.addEventListener('click', event => {
+    if (event.target.matches('#log-out')) {
+      logout();
+    }
+  });//end of this event
   fetchPosts();
 });
