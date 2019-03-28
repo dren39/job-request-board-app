@@ -4,13 +4,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
   //variables
   const postUrl = "http://localhost:3000/posts";
   const userUrl = "http://localhost:3000/users"
+  const postMethod = 'POST';
+  const patchMethod = 'PATCH';
+  const deleteMethod = 'DELETE';
   const divContainer = document.querySelector("#container");
   const divIndexContainer = document.querySelector("#index-container");
   const divShowContainer = document.querySelector("#show-container");
   const form = document.querySelector("#form");
-  const postMethod = 'POST';
-  const patchMethod = 'PATCH';
-  const deleteMethod = 'DELETE';
   const signform = document.querySelector('#sign-form');
   const signDiv = document.querySelector('#sign-div');
   const greet = document.querySelector('#greet');
@@ -41,11 +41,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
       </div>
     </div>
     `
-    // <div class="card" data-post-id="${post.id}">
-    // <h4>${post.title}</h4>
-    // <p>Reward: ${post.reward}</p>
-    // <p>Location: ${post.location}</p>
-    // </div>
   };//end of this function
 
   //this fetches for specific object and passes to showPost function
@@ -61,11 +56,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   function showPost(post) {
     divIndexContainer.innerHTML = '';
     divShowContainer.innerHTML = `
-    <div class="show-card card border-primary mb-3">
-      <h3 class="show-attr" >${post.title}</h3>
-      <span>Description:
+    <div id="show-card" class="card border-primary mb-3">
+      <br><h3 class="show-attr" >${post.title}</h3><br>
       <span class="show-attr">${post.description}</span>
-      </span><br>
       <br><span>Reward:
       <span class="show-attr">${post.reward}</span>
       <br></span><br>
@@ -79,7 +72,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       <span class="show-attr">${post.user_id}</span>
       <br></span><br>
       <button type="button" id="edit" class="btn btn-primary" data-edit-id="${post.id}">Edit</button><br>
-      <button type="button" id="delete" class="btn btn-danger" data-delete-id="${post.id}">Delete</button>
+      <button type="button" id="delete" class="btn btn-danger" data-delete-id="${post.id}">Delete</button><br>
     </div>
     `
   };//end of this function
@@ -113,14 +106,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
       method: 'DELETE',
       headers: {
         "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        id: postId
-      })
+      }
     })//end of fetch
     .then(response => response.json())
     .then(post => {
-      fetchPosts(post)
+      fetchPosts()
     });
   };//end of function
 
@@ -128,21 +118,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
   function generateForm(parentNode, postId) {
     divShowContainer.innerHTML = '';
     divShowContainer.innerHTML = `
-    <form id="edit-form">
-    <label>Title</label>
-    <input type="text" id="edit-title"><br>
-    <label>Description</label><br>
-    <textarea id="edit-description"></textarea><br>
-    <label>Reward</label>
-    <input type="text" id="edit-reward"><br>
-    <label>Location</label>
-    <input type="text" id="edit-location"><br>
-    <label>Contact</label>
-    <input type="text" id="edit-contact"><br>
-    <label>Username</label>
-    <input type="text" id="edit-username"><br>
-    <input type="submit" id="edit-submit" data-edit-submit-id="${postId}">
-    </form><br>
+    <div class="card border-primary mb-3">
+      <div class="card-body">
+        <form id="edit-form"">
+        <input type="text" id="edit-title" class="form-control" placeholder="Title"><br>
+        <textarea id="edit-description" class="form-control" placeholder="Description"></textarea><br>
+        <input type="text" id="edit-reward" class="form-control" placeholder="Reward"><br>
+        <input type="text" id="edit-location" class="form-control" placeholder="Location"><br>
+        <input type="text" id="edit-contact" class="form-control" placeholder="Contact"><br>
+        <input type="text" id="edit-username" class="form-control" placeholder="Username"><br>
+        <input type="submit" id="edit-submit" class="form-control btn btn-primary" data-edit-submit-id="${postId}">
+        </form><br>
+      </div>
+    </div>
     `
     populateForm(parentNode)
   };//end of function
@@ -165,7 +153,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       body: JSON.stringify({
         username: login.username
-        // password: login.password
       })
     })//end of fetch
     .then(response => response.json())
@@ -177,21 +164,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
   function makeUser(user) {
     signDiv.innerHTML = '';
     signDiv.innerHTML = `
-    <button type="button" id="log-out">Logout</button>
+    <button type="button" id="log-out" class="btn btn-primary">Logout</button>
     `
     greet.innerText = `Hi, ${user.username}`
   };//end of this function
 
   function logout() {
-    greet.innerText = "Sign up or Sign in!"
+    greet.innerText = "You have signed out!"
     signDiv.innerHTML = '';
     signDiv.innerHTML = `
-      <form id="sign-form">
-        <label>Username</label>
-        <input id="sign-username">
-        <label>Password</label>
-        <input type="password" id="sign-pw">
-        <input type="submit" id="sign-submit">
+      <form id="sign-form" class="form-inline">
+        <input id="sign-username" class="form-control mr-2 align-baseline" placeholder="Username">
+        <input type="password" id="sign-pw" class="form-control mr-2" placeholder="Password">
+        <input type="submit" id="sign-submit" class="btn btn-primary">
       </form><br>
     `
   };//end of this function
@@ -206,7 +191,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   };//end of this function
 
   //event listeners
-  //this listens for a click on the div container and delegates the event based on the target (show, edit, delete)
+
   divIndexContainer.addEventListener('click', event => {
     let postId = event.target.dataset.postId
     if (event.target.matches(".see-quest")) {
@@ -217,7 +202,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   divShowContainer.addEventListener('click', event=> {
     event.preventDefault();
     if(event.target.matches("#edit")) {
-      console.log(event);
       let postId = event.target.dataset.editId;
       const parentNode = {
         title: event.target.parentNode.getElementsByClassName("show-attr")[0].innerText,
@@ -264,7 +248,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   signform.addEventListener('submit', event => {
     event.preventDefault();
-    const myModal = document.querySelector("#exampleModal")
     const login = {
       username: document.querySelector("#sign-username").value,
     }

@@ -1,4 +1,6 @@
 #index-container {
+  margin: auto;
+  padding-left: 240px;
   display: grid;
   grid-template-columns: repeat(3, 3fr);
   grid-auto-rows: repeat(3, 3fr);
@@ -11,7 +13,25 @@ body {
  background-image: linear-gradient(rgba(0, 1, 0.5, 0.6), rgba(0, 0, 0, 0.5)), url("https://amazing.sfo2.cdn.digitaloceanspaces.com/amazinghouse/images/2019/01/dark-wood-vectors-photos-and-psd-files-free-download-for-dark-wood-texture-background.jpg");
 }
 
-.show-card {
+#show-card {
   align-items: center;
   text-align: center;
+}
+
+#sign-btn-container {
+  text-align: center;
+}
+
+#request-btn-container {
+  text-align: center;
+}
+
+#show-container {
+  width:700px;
+  margin: auto;
+}
+
+#sign-div {
+  display: flex;
+  justify-content: center;
 }

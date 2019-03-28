@@ -20,14 +20,17 @@
   </head>
 
   <h1 style="color:white" class="text-center">Guild Quest</h1>
-  <h4 style="color:white" class="text-center">Complete jobs and get rewarded</h4><br>
-  <h3 id="greet" style="color:white">Sign up or Sign in!</h3>
+  <h3 style="color:white" class="text-center">Complete jobs and get rewarded</h3><br>
+  <h3 id="greet" style="color:white" class="text-center">Sign up or Sign in!</h3>
 
   <!-- handles signin functionality -->
   <div id="sign-div">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal">
-      Signup/Login
-    </button>
+    <div id="sign-btn-container">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal">
+        Signup/Login
+      </button>
+
+    </div>
 
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -42,24 +45,26 @@
           <form id="sign-form">
             <div class="form-row">
                 <div class="col">
-                    <input type="text" id="sign-username" class="form-control" placeholder="Username">
+                  <input type="text" id="sign-username" class="form-control" placeholder="Username">
                 </div>
                 <div class="col">
-                    <input type="password" class="form-control" id="sign-pw" placeholder="Password">
+                  <input type="password" class="form-control" id="sign-pw" placeholder="Password">
                 </div>
+                <br><input type="submit" id="sign-submit" class="btn btn-primary">
             </div>
-          <br><input type="submit" id="sign-submit" class="btn btn-primary">
           </form>
         </div>
         </div>
       </div>
     </div>
-  </div>
+  </div><br>
 
   <!-- Launch request modal -->
-  <br> <button type="button" class="btn btn-primary float-lg-left" data-toggle="modal" data-target="#request-modal">
-  Enter a Request
-  </button>
+  <div id="request-btn-container">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#request-modal">
+      Enter a Request
+    </button>
+  </div>
 
   <!-- Request modal form -->
   <div class="modal fade" id="request-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -89,10 +94,8 @@
   <br><body> <br>
     <div id="container">
       <div id="index-container">
-
       </div>
       <div id="show-container">
-
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
