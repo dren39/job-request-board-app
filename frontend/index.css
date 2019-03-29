@@ -7,36 +7,65 @@
   grid-column-gap: 1rem;
   justify-items: center;
   align-items: center;
-  font-family: 'Germania One', cursive;
-  
+  font-family: 'PT Sans', sans-serif;
 }
 
 body {
  background-image: linear-gradient(rgba(0, 1, 0.5, 0.6), rgba(0, 0, 0, 0.5)), url("https://amazing.sfo2.cdn.digitaloceanspaces.com/amazinghouse/images/2019/01/dark-wood-vectors-photos-and-psd-files-free-download-for-dark-wood-texture-background.jpg");
- font-family: 'Germania One', cursive;
+ font-family: 'PT Sans', sans-serif;
 }
 
 #show-card {
   align-items: center;
   text-align: center;
-  font-family: 'Germania One', cursive;
-
+  font-family: 'PT Sans', sans-serif;
 }
 
 #sign-btn-container {
   text-align: center;
+  font-family: 'PT Sans', sans-serif;
 }
 
 #request-btn-container {
   text-align: center;
+  font-family: 'PT Sans', sans-serif;
 }
 
 #show-container {
   width:700px;
   margin: auto;
+  font-family: 'PT Sans', sans-serif;
 }
 
 #sign-div {
   display: flex;
   justify-content: center;
+  font-family: 'PT Sans', sans-serif;
+}
+
+#request-btn-container {
+  font-family: 'PT Sans', sans-serif;
+}
+
+#greet {
+  font-family: 'PT Sans', sans-serif;
+}
+
+#header {
+  font-family: 'PT Sans', sans-serif;
+}
+
+#slogan {
+  font-family: 'PT Sans', sans-serif;
+}
+
+#request-modal {
+  font-family: 'PT Sans', sans-serif;
+
+}
+
+#back-btn-container {
+  /* display: grid;
+  align-items: left; */
+  /* width: 60px; */
 }

@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const postMethod = 'POST';
   const patchMethod = 'PATCH';
   const deleteMethod = 'DELETE';
+  let loggedIn = false;
   const divContainer = document.querySelector("#container");
   const divIndexContainer = document.querySelector("#index-container");
   const divShowContainer = document.querySelector("#show-container");
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   //this creates each card for each object and adds to container
   function renderPost(post) {
+
     divIndexContainer.innerHTML += `
     <div class="index-card p-3 mb-2 bg-light border rounded border-primary" style="width: 20rem;" data-post-id="${post.id}">
       <div class="card-body">
@@ -55,9 +57,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   //this takes the object and renders the "show" page for that object
   function showPost(post) {
+    const loggedIn = false
     divIndexContainer.innerHTML = '';
     divShowContainer.innerHTML = `
-    <div id="show-card" class="card border-primary mb-3">
+    <div id="show-card" class="card border-primary mb-3" data-post-id="${post.user_id}">
       <br><h3 class="show-attr" >${post.title}</h3><br>
       <span class="show-attr">${post.description}</span>
       <br><span>Reward:
@@ -70,12 +73,34 @@ document.addEventListener('DOMContentLoaded', (event) => {
       <span class="show-attr">${post.location}</span>
       <br></span><br>
       <span>Username:
-      <span class="show-attr">${post.user_id}</span>
+      <span class="show-attr">${post.user_id}</span><br>
+      <br><button type="button" id="back" class="btn btn-primary">Back</button>
       <br></span><br>
-      <button type="button" id="edit" class="btn btn-primary" data-edit-id="${post.id}">Edit</button><br>
-      <button type="button" id="delete" class="btn btn-danger" data-delete-id="${post.id}">Delete</button><br>
+      <!-- <button type="button" id="edit" class="btn btn-primary" data-edit-id="${post.id}">Edit</button><br>
+      <button type="button" id="delete" class="btn btn-danger" data-delete-id="${post.id}">Delete</button><br> -->
     </div>
     `
+    makeBtn(post);
+  };//end of this function
+
+  function makeBtn(post) {
+    const showCard = document.querySelector('#show-card');
+    const editBtn = document.createElement('button');
+    const breaktag = document.createElement('br');
+    editBtn.setAttribute('id', 'edit');
+    editBtn.setAttribute('class', 'btn btn-primary');
+    editBtn.setAttribute('data-edit-id', post.id);
+    editBtn.innerText = 'Edit'
+    const deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('id', 'delete');
+    deleteBtn.setAttribute('class', 'btn btn-danger');
+    deleteBtn.setAttribute('data-delete-id', post.id);
+    deleteBtn.innerText = 'Delete'
+    if (loggedIn && showCard.dataset.postId === signDiv.dataset.userId) {
+      showCard.appendChild(editBtn);
+      showCard.appendChild(breaktag);
+      showCard.appendChild(deleteBtn);
+    }
   };//end of this function
 
   //this handles the patch and post fetch requests and calls the function passes in
@@ -164,6 +189,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   function makeUser(user) {
     signDiv.innerHTML = '';
+    signDiv.setAttribute('data-user-id', user.username)
     signDiv.innerHTML = `
     <button type="button" id="log-out" class="btn btn-primary">Logout</button>
     `
@@ -230,6 +256,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
       postId = event.target.dataset.deleteId
       deletePost(postId)
     }
+    else if (event.target.matches("#back")) {
+      fetchPosts();
+    }
   })//end of this event listener
 
   form.addEventListener('submit', event => {
@@ -242,7 +271,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       location: document.querySelector('#location'),
       username: document.querySelector('#username')
     }
-    patchPostFetch(postMethod, inputs, renderPost);
+    patchPostFetch(postMethod, inputs, fetchPosts);
     clearForm(inputs);
     $('#request-modal').modal('hide');
   });//end of this event
@@ -253,6 +282,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       username: document.querySelector("#sign-username").value,
     }
     $('#login-modal').modal('hide');
+    loggedIn = true;
     fetchLogin(login)
   });//end of this event
 

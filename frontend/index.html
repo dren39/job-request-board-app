@@ -18,82 +18,84 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link href="https://fonts.googleapis.com/css?family=Germania+One|Indie+Flower" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
   </head>
 
-  <h1 style="color:white" class="text-center">Guild Quest</h1>
-  <h3 style="color:white" class="text-center">Complete jobs and get rewarded</h3><br>
-  <h3 id="greet" style="color:white" class="text-center">Sign up or Sign in!</h3>
 
-  <!-- handles signin functionality -->
-  <div id="sign-div">
-    <div id="sign-btn-container">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal">
-        Signup/Login
-      </button>
+  <body> <br>
+    <h1 style="color:white" class="text-center" id="header">Guild Quest</h1>
+    <h3 style="color:white" class="text-center" id="slogan">Complete jobs and get rewarded</h3><br>
+    <h3 id="greet" style="color:white" class="text-center">Sign up or Login in!</h3>
 
-    </div>
 
-    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Sign up or Login</h5>
+    <!-- handles signin functionality -->
+    <div id="sign-div">
+      <div id="sign-btn-container">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal">
+          Signup/Login
+        </button>
+
+      </div>
+
+      <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Sign up or Login</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-          </div>
-        <div class="modal-body">
-          <form id="sign-form">
-            <div class="form-row">
-                <div class="col">
-                  <input type="text" id="sign-username" class="form-control" placeholder="Username">
-                </div>
-                <div class="col">
-                  <input type="password" class="form-control" id="sign-pw" placeholder="Password">
-                </div>
-                <br><input type="submit" id="sign-submit" class="btn btn-primary">
             </div>
-          </form>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div><br>
-
-  <!-- Launch request modal -->
-  <div id="request-btn-container">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#request-modal">
-      Enter a Request
-    </button>
-  </div>
-
-  <!-- Request modal form -->
-  <div class="modal fade" id="request-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Enter a new request</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="form">
-            <input type="text" id="title" placeholder="Title" class="form-control"><br>
-            <textarea id="description" placeholder="Description" class="form-control"></textarea><br>
-            <input type="text" id="reward" placeholder="Reward" class="form-control"><br>
-            <input type="text" id="location" placeholder="Location" class="form-control"><br>
-            <input type="text" id="contact" placeholder="Contact Info" class="form-control"><br>
-            <input type="text" id="username" placeholder="Username" class="form-control"><br>
-            <br> <input type="submit" class="btn btn-primary text-center form-control">
-          </form><br>
+            <div class="modal-body">
+              <form id="sign-form">
+                <div class="form-row">
+                  <div class="col">
+                    <input type="text" id="sign-username" class="form-control" placeholder="Username">
+                  </div>
+                  <div class="col">
+                    <input type="password" class="form-control" id="sign-pw" placeholder="Password">
+                  </div>
+                  <br><input type="submit" id="sign-submit" class="btn btn-primary">
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </div><br>
 
-  <br><body> <br>
+    <!-- Launch request modal -->
+    <div id="request-btn-container">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#request-modal">
+        Enter a Request
+      </button>
+    </div>
+
+    <!-- Request modal form -->
+    <div class="modal fade" id="request-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Enter a new request</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="form">
+              <input type="text" id="title" placeholder="Title" class="form-control"><br>
+              <textarea id="description" placeholder="Description" class="form-control"></textarea><br>
+              <input type="text" id="reward" placeholder="Reward" class="form-control"><br>
+              <input type="text" id="location" placeholder="Location" class="form-control"><br>
+              <input type="text" id="contact" placeholder="Contact Info" class="form-control"><br>
+              <input type="text" id="username" placeholder="Username" class="form-control"><br>
+              <br> <input type="submit" class="btn btn-primary text-center form-control">
+            </form><br>
+          </div>
+        </div>
+      </div>
+    </div><br>
+
     <div id="container">
       <div id="index-container">
       </div>
