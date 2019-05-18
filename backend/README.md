@@ -1,24 +1,15 @@
-# README
+Guild Quest is a web app designed for users to post real life requests and odd jobs for other users to accept and complete in exchange for payment or other compensation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Guild Quest is built with a Rails backend using Ruby 2.6.1
 
-Things you may want to cover:
+Installation Instructions:
 
-* Ruby version
+Clone this repository to your local machine and go to the file in your terminal.
 
-* System dependencies
+Run rake db:migrate
 
-* Configuration
+Run bundle install
 
-* Database creation
+Run rails s to start Rails server
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Licenses David Ren March 29, 2019
